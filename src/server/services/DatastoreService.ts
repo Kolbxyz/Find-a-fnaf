@@ -1,5 +1,5 @@
 // src/server/services/DatastoreService.ts
-import { loadData } from "server/modules/Datastore";
+import { loadData, saveData } from "server/modules/Datastore";
 
 export class DatastoreService {
     constructor() {
@@ -9,6 +9,10 @@ export class DatastoreService {
     load(player: Player) {
         loadData(player);
         return player;
+    }
+
+    save(player: Player) {
+        return saveData(player);
     }
 }
 

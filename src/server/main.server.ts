@@ -7,3 +7,7 @@ Players.PlayerAdded.Connect((player: Player) => {
     playerService.printName(player);
     datastoreService.load(player);
 });
+
+Players.PlayerRemoving.Connect((player: Player) => {
+    datastoreService.save(player);
+})
