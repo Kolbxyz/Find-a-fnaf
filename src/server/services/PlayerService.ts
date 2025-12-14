@@ -1,8 +1,9 @@
 // src/server/services/PlayerService.ts
 import { printName } from "shared/modules/Player";
+import { PlayerSaveData } from "server/types/PlayerSaveData";
 
 export class PlayerService {
-    playerData = new Map<Player, number>();
+    playerData = new Map<Player, PlayerSaveData>();
 
     constructor() {
         print("PlayerService initialized");
