@@ -2,7 +2,7 @@
 import { printName } from "shared/modules/Player";
 import { PlayerSaveData } from "server/types/PlayerSaveData";
 
-export class PlayerService {
+class PlayerService {
     playerData = new Map<Player, PlayerSaveData>();
 
     constructor() {

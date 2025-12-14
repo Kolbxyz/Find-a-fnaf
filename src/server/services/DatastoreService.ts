@@ -1,17 +1,17 @@
 // src/server/services/DatastoreService.ts
 import { loadData, saveData } from "server/modules/Datastore";
+import { PlayerSaveData } from "server/types/PlayerSaveData";
 
-export class DatastoreService {
+class DatastoreService {
     constructor() {
         print("DatastoreService initialized");
     }
 
-    load(player: Player) {
-        loadData(player);
-        return player;
+    load(player: Player): PlayerSaveData {
+        return loadData(player);
     }
 
-    save(player: Player) {
+    save(player: Player): boolean {
         return saveData(player);
     }
 }

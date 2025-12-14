@@ -2,11 +2,11 @@
 export interface PlayerSaveData {
     money: number;
     level: number;
-    inventory: string[];
+    collection: string[];
 }
 
 export const DEFAULT_PLAYER_DATA: PlayerSaveData = {
     money: 0,
     level: 1,
-    inventory: ["stick"]
+    collection: []
 }
