@@ -2,6 +2,7 @@
 import { DataStoreService } from "@rbxts/services";
 import { playerService } from "server/services/PlayerService";
 import { PlayerSaveData, DEFAULT_PLAYER_DATA } from "server/types/PlayerSaveData";
+import { verboseService, LOGGING_LEVEL } from "shared/services/VerboseService";
 
 const Datastore = DataStoreService.GetDataStore("players_data")
 
@@ -14,12 +15,12 @@ export function loadData(player: Player): PlayerSaveData {
     });
 
     if (!success) {
-        warn(`Failed to load data for ${player.Name}: ${ret}`);
+        verboseService.warn(`Failed to load data for ${player.Name}: ${ret}`, LOGGING_LEVEL.NORMAL);
         return DEFAULT_PLAYER_DATA;
     }
 
     playerService.playerData.set(player, playerData);
-    print(`Successfully loaded data for ${player.Name}`);
+    verboseService.print(`Successfully loaded data for ${player.Name}`, LOGGING_LEVEL.DEBUG);
     print(`Level: ${playerData.level}`);
     return playerData;
 }
@@ -28,7 +29,7 @@ export function saveData(player: Player): boolean {
     const playerData = playerService.playerData.get(player);
 
     if (playerData === undefined) {
-        warn(`No data to save for ${player.Name}`);
+        verboseService.warn(`No data to save for ${player.Name}`, LOGGING_LEVEL.NORMAL);
         return false;
     }
 
@@ -37,10 +38,10 @@ export function saveData(player: Player): boolean {
     });
 
     if (!success) {
-        warn(`Failed to save data for ${player.Name}: ${errorMsg}`);
+        verboseService.warn(`Failed to save data for ${player.Name}: ${errorMsg}`, LOGGING_LEVEL.NORMAL);
         return false;
     }
     playerService.playerData.delete(player);
-    print(`Successfully saved data for ${player.Name}`);
+    verboseService.print(`Successfully saved data for ${player.Name}`, LOGGING_LEVEL.NORMAL);
     return true;
 }
