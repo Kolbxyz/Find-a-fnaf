@@ -1,7 +1,7 @@
 // src/server/main.server.ts
 import { playerService } from "server/services/PlayerService";
 import { datastoreService } from "server/services/DatastoreService"
-import { networkService } from "server/services/NetworkService"
+import { networkService, RemoteInstance } from "shared/services/NetworkService"
 import { Players } from "@rbxts/services";
 
 Players.PlayerAdded.Connect((player: Player) => {
@@ -13,6 +13,9 @@ Players.PlayerRemoving.Connect((player: Player) => {
     datastoreService.save(player);
 })
 
-networkService.newRemote("Test", 1);
-networkService.newRemote("Test", 1);
-networkService.newRemote("Test2", 1);
+const remote: RemoteInstance = networkService.newRemote("Category/Test", 1);
+const remote2: RemoteInstance = networkService.newRemote("Category/Test", 1);
+const remote3: RemoteInstance = networkService.newRemote("Category/Test2", 1);
+
+remote.bind(() => { print("hi") });
+(remote.object as RemoteEvent).FireServer("hi");

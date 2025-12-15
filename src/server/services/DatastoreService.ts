@@ -1,10 +1,11 @@
 // src/server/services/DatastoreService.ts
 import { loadData, saveData } from "server/modules/Datastore";
 import { PlayerSaveData } from "server/types/PlayerSaveData";
+import { verboseService, LOGGING_LEVEL } from "shared/services/VerboseService";
 
 class DatastoreService {
     constructor() {
-        print("DatastoreService initialized");
+        verboseService.print("DatastoreService initialized", LOGGING_LEVEL.DEBUG);
     }
 
     load(player: Player): PlayerSaveData {
