@@ -1,5 +1,5 @@
 // src/server/services/VerboseService.ts
-import { RunService } from "@rbxts/services";
+import { Service, OnInit } from "@flamework/core";
 
 export enum LOGGING_LEVEL {
     SILENT = 1,
@@ -8,12 +8,16 @@ export enum LOGGING_LEVEL {
     DEBUG
 }
 
-class VerboseService {
-    LOGGING_LEVEL: number;
+@Service()
+export class VerboseService implements OnInit {
+    LOGGING_LEVEL: number = LOGGING_LEVEL.NORMAL;
 
-    constructor(level: LOGGING_LEVEL | undefined) {
-        this.LOGGING_LEVEL = level ?? LOGGING_LEVEL.NORMAL;
+    onInit() {
         print("VerboseService initalized");
+    }
+
+    changeVerbose(level: LOGGING_LEVEL) {
+        this.LOGGING_LEVEL = level;
     }
 
     print(msg: string, level: LOGGING_LEVEL) {
@@ -26,5 +30,3 @@ class VerboseService {
             warn(msg);
     }
 }
-
-export const verboseService = new VerboseService(RunService.IsStudio() ? LOGGING_LEVEL.DEBUG : LOGGING_LEVEL.NORMAL);

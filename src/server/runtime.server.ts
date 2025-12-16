@@ -1,13 +1,8 @@
-// src/server/runtime.server.ts
-import { Players } from "@rbxts/services";
-import { playerService } from "server/services/PlayerService";
-import { datastoreService } from "server/services/DatastoreService";
+// server/runtime.server.ts
+import { Flamework } from "@flamework/core";
 
-Players.PlayerAdded.Connect((player) => {
-    playerService.printName(player);
-    datastoreService.load(player);
-});
+Flamework.addPaths("src/server/services");
+Flamework.addPaths("src/server/components");
+Flamework.addPaths("src/shared/components");
 
-Players.PlayerRemoving.Connect((player) => {
-    datastoreService.save(player);
-});
+Flamework.ignite();

@@ -1,8 +1,10 @@
 // src/server/services/PlayerService.ts
 import { printName } from "shared/modules/Player";
 import { PlayerSaveData } from "server/types/PlayerSaveData";
+import { Service } from "@flamework/core";
 
-class PlayerService {
+@Service()
+export class PlayerService {
     playerData = new Map<Player, PlayerSaveData>();
 
     constructor() {
@@ -14,5 +16,3 @@ class PlayerService {
         return player;
     }
 }
-
-export const playerService = new PlayerService();
