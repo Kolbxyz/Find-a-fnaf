@@ -1,11 +1,11 @@
 // src/server/services/DatastoreService.ts
 import { Service, OnStart, OnInit } from "@flamework/core";
-import { Players } from "@rbxts/services";
+import { Players, RunService } from "@rbxts/services";
 import { PlayerService } from "./PlayerService";
 import { VerboseService, LOGGING_LEVEL } from "shared/Utils/VerboseService";
 import { ServerEvents } from "server/network";
 import { Datastore } from "server/modules/Datastore";
-import { PlayerSaveData } from "server/types/PlayerSaveData";
+import { DEFAULT_PLAYER_DATA, PlayerSaveData } from "server/types/PlayerSaveData";
 
 @Service()
 export class DatastoreService implements OnStart, OnInit {
@@ -22,6 +22,10 @@ export class DatastoreService implements OnStart, OnInit {
         const playerData = Datastore.getPlayerData(player.UserId);
         this.VerboseService.print(`Successfully loaded data for ${player.Name}`, LOGGING_LEVEL.DEBUG);
 
+        if (!playerData) {
+            player.Kick("We couldn't retrieve your data. If you encounter this issue again, please contact a dev.")
+            return DEFAULT_PLAYER_DATA;
+        }
         if (playerData.money === 0) {
             playerData.money += 100;
             ServerEvents.givePlayerMoney(player, 100);
@@ -59,5 +63,7 @@ export class DatastoreService implements OnStart, OnInit {
             this.save(player);
             this.PlayerService.playerData.delete(player);
         });
+
+        game.BindToClose(() => { task.wait(RunService.IsStudio() ? 5 : 30) })
     }
 }
