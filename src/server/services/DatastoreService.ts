@@ -28,8 +28,8 @@ export class DatastoreService implements OnStart, OnInit {
         }
 
         this.PlayerService.playerData.set(player, playerData);
-        print(`Level: ${playerData.level}`);
-        print(`Money: ${playerData.money}`);
+        this.VerboseService.print(`Level: ${playerData.level}`, LOGGING_LEVEL.DEBUG);
+        this.VerboseService.print(`Money: ${playerData.money}`, LOGGING_LEVEL.DEBUG);
         return playerData;
     }
 

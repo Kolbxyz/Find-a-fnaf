@@ -13,7 +13,7 @@ export class VerboseService implements OnInit {
     LOGGING_LEVEL: number = LOGGING_LEVEL.NORMAL;
 
     onInit() {
-        print("VerboseService initalized");
+        this.print("VerboseService initalized", LOGGING_LEVEL.DEBUG);
     }
 
     changeVerbose(level: LOGGING_LEVEL) {
