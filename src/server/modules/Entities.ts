@@ -1,39 +1,6 @@
 // server/modules/Entities.ts
-enum Rarity {
-    Common = 1,
-    Uncommon,
-    Rare,
-    Legendary,
-    Mythic
-}
-
-export interface Entity {
-    id: string; // Internal entity name
-    name: string; // Actual entity name
-    description: string; // Short description of the entity
-    rarity: Rarity; // Rarity Type (Rarity enum)
-    prob: [min: number, max: number]; // Probability for this entity to randomly appear (1 - 10 000)
-    canSpawn: boolean; // Whether the entity can randomly spawn
-}
-
-const entities: Entity[] = [
-    {
-        id: "error",
-        name: "Internal error",
-        description: "You shouldn't be getting this..?",
-        rarity: Rarity.Legendary,
-        prob: [0, 0],
-        canSpawn: false
-    },
-    {
-        id: "test",
-        name: "test name",
-        description: "just a test entity",
-        rarity: Rarity.Rare,
-        prob: [0, 5000],
-        canSpawn: true
-    }
-]
+import { Entity } from "shared/types/Entities";
+import { entities } from "server/data/EntitiesData";
 
 export function getRandom(): Entity {
     const randint = math.random(1, 10000) / 10000;

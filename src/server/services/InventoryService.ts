@@ -1,7 +1,7 @@
 // server/InventoryService.ts
 import { Service } from "@flamework/core";
 import { LOGGING_LEVEL, VerboseService } from "shared/Utils/VerboseService";
-import { getRandom, Entity } from "server/modules/Entities";
+import { Entity } from "shared/types/Entities";
 import { PlayerService } from "./PlayerService";
 
 @Service()
@@ -11,7 +11,7 @@ export class InventoryService {
         private PlayerService: PlayerService
     ) { }
 
-    addEntity(player: Player, entity: Entity) {
+    addToCollection(player: Player, entity: Entity) {
         let playerData = this.PlayerService.playerData.get(player);
 
         (playerData?.collection)?.push(entity.id);
