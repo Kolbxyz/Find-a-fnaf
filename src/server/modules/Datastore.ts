@@ -1,5 +1,5 @@
 // src/server/modules/Datastore.ts
-import { DataStoreService, ExperienceNotificationService } from "@rbxts/services";
+import { DataStoreService } from "@rbxts/services";
 import { PlayerSaveData, DEFAULT_PLAYER_DATA } from "server/types/PlayerSaveData";
 
 const datastore = DataStoreService.GetDataStore("players_data");
