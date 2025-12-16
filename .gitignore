@@ -1,6 +1,10 @@
 /node_modules
 /out
 /include
+/vscode
+package-lock.json
+package.json
+default.project.json
 *.tsbuildinfo
 package-lock.json
 flamework.build
