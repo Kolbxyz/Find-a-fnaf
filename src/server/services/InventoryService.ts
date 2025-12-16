@@ -1,15 +1,19 @@
 // server/InventoryService.ts
-import { Service } from "@flamework/core";
+import { OnStart, Service } from "@flamework/core";
 import { LOGGING_LEVEL, VerboseService } from "shared/Utils/VerboseService";
 import { Entity } from "shared/types/Entities";
 import { PlayerService } from "./PlayerService";
 
 @Service()
-export class InventoryService {
+export class InventoryService implements OnStart {
     constructor(
         private VerboseService: VerboseService,
         private PlayerService: PlayerService
     ) { }
+
+    onStart(): void {
+        this.VerboseService.print("InventoryService has been initialized!", LOGGING_LEVEL.DEBUG);
+    }
 
     addToCollection(player: Player, entity: Entity) {
         let playerData = this.PlayerService.playerData.get(player);
