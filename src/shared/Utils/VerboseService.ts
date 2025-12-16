@@ -10,22 +10,22 @@ export enum LOGGING_LEVEL {
 
 @Service()
 export class VerboseService implements OnInit {
-    LOGGING_LEVEL: number = LOGGING_LEVEL.NORMAL;
+    private currentLevel: number = LOGGING_LEVEL.NORMAL;
 
     onInit() {
         this.print("VerboseService initalized", LOGGING_LEVEL.DEBUG);
     }
 
     changeVerbose(level: LOGGING_LEVEL) {
-        this.LOGGING_LEVEL = level;
+        this.currentLevel = level;
     }
 
-    print(msg: string, level: LOGGING_LEVEL) {
+    print(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
         if (level <= this.LOGGING_LEVEL)
             print(msg);
     }
 
-    warn(msg: string, level: LOGGING_LEVEL) {
+    warn(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
         if (level <= this.LOGGING_LEVEL)
             warn(msg);
     }
