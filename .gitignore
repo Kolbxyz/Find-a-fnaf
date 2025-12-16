@@ -4,7 +4,6 @@
 /vscode
 package-lock.json
 package.json
-default.project.json
 *.tsbuildinfo
 package-lock.json
 flamework.build
