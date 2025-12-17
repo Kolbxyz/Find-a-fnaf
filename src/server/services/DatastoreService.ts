@@ -41,13 +41,13 @@ export class DatastoreService implements OnStart, OnInit {
 		const playerData = this.PlayerService.playerData.get(player);
 
 		if (playerData === undefined) {
-			this.VerboseService.warn(`No data to save for ${player.Name}`, LOGGING_LEVEL.NORMAL);
+			this.VerboseService.warn(`No data to save for ${player.Name}`);
 			return false;
 		}
 
 		const success = Datastore.setPlayerData(player.UserId, playerData);
 		if (success) {
-			this.VerboseService.print(`Successfully saved data for ${player.Name}`, LOGGING_LEVEL.NORMAL);
+			this.VerboseService.print(`Successfully saved data for ${player.Name}`);
 		}
 		return success;
 	}
