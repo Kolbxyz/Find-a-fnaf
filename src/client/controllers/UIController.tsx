@@ -8,7 +8,6 @@ import { VerboseService } from "shared/Utils/VerboseService";
 @Controller()
 export class UIController implements OnStart {
 	constructor(private VerboseService: VerboseService) {}
-
 	private root = createRoot(new Instance("Folder"));
 
 	onStart() {
