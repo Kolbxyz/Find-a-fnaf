@@ -9,7 +9,7 @@ export class InventoryService implements OnStart {
 	constructor(
 		private VerboseService: VerboseService,
 		private PlayerService: PlayerService,
-	) { }
+	) {}
 
 	onStart(): void {
 		this.VerboseService.print("InventoryService has been initialized!", LOGGING_LEVEL.DEBUG);

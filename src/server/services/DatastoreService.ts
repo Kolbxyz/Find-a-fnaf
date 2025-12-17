@@ -12,7 +12,7 @@ export class DatastoreService implements OnStart, OnInit {
 	constructor(
 		private VerboseService: VerboseService,
 		private PlayerService: PlayerService,
-	) { }
+	) {}
 
 	onInit() {
 		this.VerboseService.print("DatastoreService initialized", LOGGING_LEVEL.DEBUG);
