@@ -30,5 +30,6 @@
 				"obfuscation": true
 			}
 		]
-	}
+	},
+	"exclude": ["eslint.config.mts", "node_modules", "out"]
 }

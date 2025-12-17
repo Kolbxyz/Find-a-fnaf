@@ -2,31 +2,29 @@
 import { Service, OnInit } from "@flamework/core";
 
 export enum LOGGING_LEVEL {
-    SILENT = 1,
-    QUIET,
-    NORMAL,
-    DEBUG
+	SILENT = 1,
+	QUIET,
+	NORMAL,
+	DEBUG,
 }
 
 @Service()
 export class VerboseService implements OnInit {
-    private currentLevel: number = LOGGING_LEVEL.NORMAL;
+	private currentLevel: number = LOGGING_LEVEL.NORMAL;
 
-    onInit() {
-        this.print("VerboseService initalized", LOGGING_LEVEL.DEBUG);
-    }
+	onInit() {
+		this.print("VerboseService initalized", LOGGING_LEVEL.DEBUG);
+	}
 
-    changeVerbose(level: LOGGING_LEVEL) {
-        this.currentLevel = level;
-    }
+	changeVerbose(level: LOGGING_LEVEL) {
+		this.currentLevel = level;
+	}
 
-    print(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
-        if (level <= this.LOGGING_LEVEL)
-            print(msg);
-    }
+	print(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
+		if (level <= this.currentLevel) print(msg);
+	}
 
-    warn(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
-        if (level <= this.LOGGING_LEVEL)
-            warn(msg);
-    }
+	warn(msg: string, level: LOGGING_LEVEL = LOGGING_LEVEL.NORMAL) {
+		if (level <= this.currentLevel) warn(msg);
+	}
 }

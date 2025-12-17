@@ -5,14 +5,14 @@ import { Service } from "@flamework/core";
 
 @Service()
 export class PlayerService {
-    playerData = new Map<Player, PlayerSaveData>();
+	playerData = new Map<Player, PlayerSaveData>();
 
-    constructor() {
-        print("PlayerService initialized");
-    }
+	constructor() {
+		print("PlayerService initialized");
+	}
 
-    printName(player: Player) {
-        printName(player);
-        return player;
-    }
+	printName(player: Player) {
+		printName(player);
+		return player;
+	}
 }

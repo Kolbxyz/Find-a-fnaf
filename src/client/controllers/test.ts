@@ -4,7 +4,7 @@ import { ClientEvents } from "client/network";
 
 @Controller()
 export class test implements OnStart {
-    onStart(): void {
-        ClientEvents.event.fire("Hi there");
-    }
+	onStart(): void {
+		ClientEvents.event.fire("Hi there");
+	}
 }

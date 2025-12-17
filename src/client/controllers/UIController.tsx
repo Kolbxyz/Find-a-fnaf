@@ -6,17 +6,15 @@ import { App } from "client/components/App";
 
 @Controller({})
 export class UIController {
-    private root = createRoot(new Instance("Folder"));
+	private root = createRoot(new Instance("Folder"));
 
-    onStart() {
-        const playerGui = Players.LocalPlayer.WaitForChild("PlayerGui") as PlayerGui;
+	onStart() {
+		const playerGui = Players.LocalPlayer.WaitForChild("PlayerGui") as PlayerGui;
 
-        this.root.render(
-            createPortal(<App />, playerGui)
-        );
-    }
+		this.root.render(createPortal(<App />, playerGui));
+	}
 
-    onDestroy() {
-        this.root.unmount();
-    }
+	onDestroy() {
+		this.root.unmount();
+	}
 }
