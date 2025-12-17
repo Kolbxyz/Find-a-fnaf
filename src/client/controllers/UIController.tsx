@@ -2,7 +2,7 @@ import { Controller } from "@flamework/core";
 import React from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import { createRoot, createPortal } from "@rbxts/react-roblox";
-import { App } from "client/components/App";
+import { App } from "client/components/react/App";
 
 @Controller({})
 export class UIController {
