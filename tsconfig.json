@@ -27,7 +27,8 @@
 		"plugins": [
 			{
 				"transform": "rbxts-transformer-flamework",
-				"obfuscation": true
+				"obfuscation": false,
+				"project": ["src/client", "src/server", "src/shared"]
 			}
 		]
 	},

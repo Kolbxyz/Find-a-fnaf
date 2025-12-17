@@ -5,6 +5,7 @@ export function Counter({ initialCount }: { initialCount: number }) {
 
 	return (
 		<textbutton
+			Font={Enum.Font.Cartoon}
 			Text={`Count: ${count}`}
 			Size={new UDim2(0, 100, 0, 50)}
 			Position={new UDim2(0.5, 0, 0.5, 0)}
