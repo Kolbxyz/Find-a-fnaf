@@ -1,6 +1,6 @@
 // server/InventoryService.ts
 import { OnStart, Service } from "@flamework/core";
-import { LOGGING_LEVEL, VerboseService } from "shared/Utils/VerboseService";
+import { LOGGING_LEVEL, VerboseService } from "shared/Utils/Verbose";
 import { Entity } from "shared/types/Entities";
 import { PlayerService } from "./PlayerService";
 

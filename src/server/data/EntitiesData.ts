@@ -8,6 +8,7 @@ export const entities: Entity[] = [
 		rarity: Rarity.Legendary,
 		prob: [0, 0],
 		canSpawn: false,
+		imageId: "",
 	},
 	{
 		id: "test",
@@ -16,5 +17,6 @@ export const entities: Entity[] = [
 		rarity: Rarity.Rare,
 		prob: [0, 5000],
 		canSpawn: true,
+		imageId: "",
 	},
 ];

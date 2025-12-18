@@ -14,4 +14,5 @@ export interface Entity {
 	rarity: Rarity; // Rarity Type (Rarity enum)
 	prob: [min: number, max: number]; // Probability for this entity to randomly appear (1 - 10 000)
 	canSpawn: boolean; // Whether the entity can randomly spawn
+	imageId: string;
 }

@@ -1,71 +1,70 @@
-// src/server/services/DatastoreService.ts
-import { Service, OnStart, OnInit } from "@flamework/core";
-import { Players, RunService } from "@rbxts/services";
-import { PlayerService } from "./PlayerService";
-import { VerboseService, LOGGING_LEVEL } from "shared/Utils/VerboseService";
-import { ServerEvents } from "server/network";
-import { Datastore } from "server/modules/Datastore";
-import { DEFAULT_PLAYER_DATA, PlayerSaveData } from "server/types/PlayerSaveData";
+import ProfileStore from "@rbxts/profile-store";
+import { Players } from "@rbxts/services";
+import { OnStart, Service } from "@flamework/core";
+import { DEFAULT_PLAYER_DATA } from "server/types/PlayerSaveData";
+
+const PlayerStore = ProfileStore.New("PlayerStore", DEFAULT_PLAYER_DATA);
+
+const Profiles = new Map<Player, unknown>();
+
+type RuntimeProfile = {
+	Data: typeof DEFAULT_PLAYER_DATA;
+	AddUserId(id: number): void;
+	Reconcile(): void;
+	EndSession(): void;
+	OnSessionEnd: RBXScriptSignal;
+};
+
+const isProfile = (v: unknown): v is RuntimeProfile => {
+	return typeIs(v, "table");
+};
 
 @Service()
-export class DatastoreService implements OnStart, OnInit {
-	constructor(
-		private VerboseService: VerboseService,
-		private PlayerService: PlayerService,
-	) {}
+export class DatastoreService implements OnStart {
+	playerAdded(player: Player) {
+		const rawProfile = PlayerStore.StartSessionAsync(`${player.UserId}`, {
+			Cancel: () => player.Parent !== Players,
+		});
 
-	onInit() {
-		this.VerboseService.print("DatastoreService initialized", LOGGING_LEVEL.DEBUG);
+		if (isProfile(rawProfile)) {
+			const profile = rawProfile;
+
+			profile.AddUserId(player.UserId);
+			profile.Reconcile();
+
+			profile.OnSessionEnd.Connect(() => {
+				Profiles.delete(player);
+				player.Kick("profile session end - please rejoin");
+			});
+
+			if (player.Parent === Players) {
+				Profiles.set(player, profile);
+				profile.Data.money += 100;
+			} else {
+				profile.EndSession();
+			}
+		} else {
+			player.Kick("profile load fail - please rejoin");
+		}
 	}
 
-	public load(player: Player): PlayerSaveData {
-		const playerData = Datastore.getPlayerData(player.UserId);
-		this.VerboseService.print(`Successfully loaded data for ${player.Name}`, LOGGING_LEVEL.DEBUG);
-
-		if (!playerData) {
-			player.Kick("We couldn't retrieve your data. If you encounter this issue again, please contact a dev.");
-			return DEFAULT_PLAYER_DATA;
+	playerRemoving(player: Player) {
+		const profile = Profiles.get(player);
+		if (isProfile(profile)) {
+			profile.EndSession();
 		}
-		if (playerData.money === 0) {
-			playerData.money += 100;
-			ServerEvents.givePlayerMoney(player, 100);
-		}
-
-		this.PlayerService.playerData.set(player, playerData);
-		this.VerboseService.print(`Level: ${playerData.level}`, LOGGING_LEVEL.DEBUG);
-		this.VerboseService.print(`Money: ${playerData.money}`, LOGGING_LEVEL.DEBUG);
-		return playerData;
-	}
-
-	public save(player: Player): boolean {
-		const playerData = this.PlayerService.playerData.get(player);
-
-		if (playerData === undefined) {
-			this.VerboseService.warn(`No data to save for ${player.Name}`);
-			return false;
-		}
-
-		const success = Datastore.setPlayerData(player.UserId, playerData);
-		if (success) {
-			this.VerboseService.print(`Successfully saved data for ${player.Name}`);
-		}
-		return success;
 	}
 
 	onStart(): void {
-		Players.PlayerAdded.Connect((player) => {
-			const playerData = this.load(player);
-			this.PlayerService.printName(player);
-			this.PlayerService.playerData.set(player, playerData);
-		});
+		for (const player of Players.GetPlayers()) {
+			coroutine.wrap(() => this.playerAdded(player))();
+		}
 
-		Players.PlayerRemoving.Connect((player) => {
-			this.save(player);
-			this.PlayerService.playerData.delete(player);
+		Players.PlayerAdded.Connect((player: Player) => {
+			this.playerAdded(player);
 		});
-
-		game.BindToClose(() => {
-			task.wait(RunService.IsStudio() ? 5 : 30);
+		Players.PlayerRemoving.Connect((player: Player) => {
+			this.playerRemoving(player);
 		});
 	}
 }

@@ -6,7 +6,7 @@ interface ClientToServerEvents {
 }
 
 interface ServerToClientEvents {
-	newEntity(entityName: string): void;
+	newEntity(entityName: string, imageId: string): void;
 	givePlayerMoney(amount: number): void;
 }
 

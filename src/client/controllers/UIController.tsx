@@ -3,7 +3,7 @@ import React from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import { createRoot, createPortal } from "@rbxts/react-roblox";
 import { App } from "client/components/react/App";
-import { VerboseService } from "shared/Utils/VerboseService";
+import { VerboseService } from "shared/Utils/Verbose";
 
 @Controller()
 export class UIController implements OnStart {

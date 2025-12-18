@@ -2,7 +2,7 @@
 import { OnStart, Service } from "@flamework/core";
 import { getRandom } from "server/modules/Entities";
 import { Entity } from "shared/types/Entities";
-import { LOGGING_LEVEL, VerboseService } from "shared/Utils/VerboseService";
+import { LOGGING_LEVEL, VerboseService } from "shared/Utils/Verbose";
 
 @Service()
 export class EntitiesService implements OnStart {
