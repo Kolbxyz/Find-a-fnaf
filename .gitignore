@@ -2,8 +2,5 @@
 /out
 /include
 /.vscode
-package-lock.json
-package.json
 *.tsbuildinfo
 package-lock.json
-flamework.build

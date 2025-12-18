@@ -7,4 +7,4 @@ Flamework.addPaths("src/shared/components");
 Flamework.addPaths("src/shared/Utils");
 
 Flamework.ignite();
-print("Server events initialized:", ClientEvents);
+print("Client events initialized:", ClientEvents);
