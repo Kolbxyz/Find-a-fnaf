@@ -1,12 +1,13 @@
 // shared/network.ts
 import { Networking } from "@flamework/networking";
+import { Entity } from "./types/Entities";
 
 interface ClientToServerEvents {
 	event(param1: string): void;
 }
 
 interface ServerToClientEvents {
-	newEntity(entityName: string, imageId: string): void;
+	newEntity(entity: Entity): void;
 	givePlayerMoney(amount: number): void;
 }
 

@@ -7,6 +7,14 @@ export enum Rarity {
 	Mythic,
 }
 
+export const RarityColor: Color3[] = [
+	new Color3(1, 1, 1),
+	new Color3(0.04, 0.73, 0.25),
+	new Color3(0, 0.33, 1),
+	new Color3(1, 0.92, 0),
+	new Color3(0.78, 0.15, 0.02),
+];
+
 export interface Entity {
 	id: string; // Internal entity name
 	name: string; // Actual entity name
