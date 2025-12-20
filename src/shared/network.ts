@@ -12,11 +12,11 @@ interface ServerToClientEvents {
 }
 
 interface ClientToServerFunctions {
-	function(param1: string): number;
+	getCollection(): string[];
 }
 
 interface ServerToClientFunctions {
-	function(param1: string): number;
+	getCollection(): string[];
 }
 
 export const GlobalEvents = Networking.createEvent<ClientToServerEvents, ServerToClientEvents>();

@@ -2,6 +2,7 @@ import ProfileStore from "@rbxts/profile-store";
 import { Players } from "@rbxts/services";
 import { OnStart, Service } from "@flamework/core";
 import { DEFAULT_PLAYER_DATA } from "server/types/PlayerSaveData";
+import { PlayerService } from "./PlayerService";
 
 const PlayerStore = ProfileStore.New("PlayerStore", DEFAULT_PLAYER_DATA);
 
@@ -40,6 +41,7 @@ export class DatastoreService implements OnStart {
 			if (player.Parent === Players) {
 				Profiles.set(player, profile);
 				profile.Data.money += 100;
+				return profile.Data;
 			} else {
 				profile.EndSession();
 			}
@@ -55,16 +57,5 @@ export class DatastoreService implements OnStart {
 		}
 	}
 
-	onStart(): void {
-		for (const player of Players.GetPlayers()) {
-			coroutine.wrap(() => this.playerAdded(player))();
-		}
-
-		Players.PlayerAdded.Connect((player: Player) => {
-			this.playerAdded(player);
-		});
-		Players.PlayerRemoving.Connect((player: Player) => {
-			this.playerRemoving(player);
-		});
-	}
+	onStart(): void {}
 }
