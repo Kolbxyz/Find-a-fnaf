@@ -1,11 +1,15 @@
 import React from "@rbxts/react";
 import { createRoot } from "@rbxts/react-roblox";
-import { Popup } from "client/components/react/Popup";
+import { App } from "client/components/react/App";
 
 function story(target: Frame) {
 	const root = createRoot(target);
 
-	root.render(<Popup entityName="Nikolas" imageId="6672218421" />);
+	root.render(
+		<>
+			<App />
+		</>,
+	);
 
 	return () => {
 		root.unmount();
