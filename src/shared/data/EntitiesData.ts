@@ -17,6 +17,6 @@ export const entities: Entity[] = [
 		rarity: Rarity.Rare,
 		prob: [0, 5000],
 		canSpawn: true,
-		imageId: "",
+		imageId: "12441846851",
 	},
 ];

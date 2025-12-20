@@ -1,6 +1,6 @@
 // server/modules/Entities.ts
 import { Entity } from "shared/types/Entities";
-import { entities } from "server/data/EntitiesData";
+import { entities } from "shared/data/EntitiesData";
 
 export function getRandom(): Entity {
 	const randint = math.random(1, 10000) / 10000;
