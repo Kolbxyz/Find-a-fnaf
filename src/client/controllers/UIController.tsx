@@ -14,7 +14,14 @@ export class UIController implements OnStart {
 		const playerGui = Players.LocalPlayer.WaitForChild("PlayerGui") as PlayerGui;
 
 		this.VerboseService.print("Initialized UIController");
-		this.root.render(createPortal(<App />, playerGui));
+		this.root.render(
+			createPortal(
+				<screengui ResetOnSpawn={false}>
+					<App />
+				</screengui>,
+				playerGui,
+			),
+		);
 	}
 
 	onDestroy() {

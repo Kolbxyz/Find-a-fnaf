@@ -1,31 +1,25 @@
 import React, { useState, useEffect } from "@rbxts/react";
 
-import { Inventory } from "./Inventory";
-import { HUD } from "./HUD";
 import { MainMenu } from "./MainMenu";
-import { Players } from "@rbxts/services";
 import { Popup } from "./Popup";
 import { ClientEvents } from "client/network";
+import { Entity } from "shared/types/Entities";
+import { Button } from "./Button";
+import { Label } from "./Tooltip";
 
 export function App() {
-	const [screen, setScreen] = useState<"menu" | "inventory">("menu");
-	const [coins, setCoins] = useState<number>(0);
-	const [currentPopup, setPopup] = useState<{ name: string; image: string } | undefined>();
-	const items = ["Sword", "Shield", "Potion"];
+	const [screen, setScreen] = useState<"someshi" | "settings" | "shop" | "none">("none");
+	const [currentPopup, setPopup] = useState<Entity | undefined>();
 
 	useEffect(() => {
-		const connection = Players.LocalPlayer.Chatted.Connect(() => {
-			setCoins((prev) => prev + 10);
-		});
-		const connection2 = ClientEvents.newEntity.connect((entityName: string, imageId: string) => {
-			print(entityName);
-			setPopup({ name: entityName, image: imageId });
+		const connection2 = ClientEvents.newEntity.connect((entity: Entity) => {
+			print(entity.name);
+			setPopup(entity);
 			task.delay(5, () => {
 				setPopup(undefined);
 			});
 		});
 		return () => {
-			connection.Disconnect();
 			connection2.Disconnect();
 		}; // onDestroy() function
 	}, []);
@@ -33,16 +27,38 @@ export function App() {
 	return (
 		<>
 			{/* Always visible HUD */}
-			<HUD coins={coins} />
+			<uilistlayout
+				FillDirection={Enum.FillDirection.Vertical}
+				HorizontalAlignment={Enum.HorizontalAlignment.Center}
+				VerticalAlignment={Enum.VerticalAlignment.Center}
+				Padding={new UDim(0, 10)}
+			/>
+
+			<Button
+				iconId="114505581952233"
+				label="Shop"
+				color={new Color3(1, 0, 0)}
+				onClick={() => setScreen("shop")}
+			/>
+			<Button
+				iconId="9405930424"
+				label="Someshi"
+				color={new Color3(0.57, 1, 0)}
+				onClick={() => setScreen("someshi")}
+			/>
+			<Button
+				iconId="17824369869"
+				label="Settings"
+				color={new Color3(0, 0.5, 1)}
+				onClick={() => setScreen("settings")}
+			/>
 
 			{/* Conditional screens */}
-			<screengui ResetOnSpawn={false}>
-				{currentPopup !== undefined && (
-					<Popup entityName={currentPopup.name} imageId={currentPopup.image}></Popup>
-				)}
-				{screen === "menu" && <MainMenu onStart={() => setScreen("inventory")} />}
-				{screen === "inventory" && <Inventory items={items} onBack={() => setScreen("menu")} />}
-			</screengui>
+			{currentPopup !== undefined && <Popup entity={currentPopup}></Popup>}
+			{/*screen === "settings" && <Counter initialCount={1} />*/}
+			{/*screen === "shop" && <Counter initialCount={777} />*/}
+			{screen === "none" && <MainMenu onStart={() => setScreen("none")} />}
+			<Label txt={screen} />
 		</>
 	);
 }
