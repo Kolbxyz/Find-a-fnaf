@@ -8,7 +8,9 @@ export function Popup({ entityName, imageId }: { entityName: string; imageId: st
 				Position={new UDim2(0.5, 0, 0.5, 0)}
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				Image={`rbxassetid://${imageId}`}
-			/>
+			>
+				<uiaspectratioconstraint />
+			</imagelabel>
 			<textlabel
 				Text={entityName}
 				TextScaled={true}
