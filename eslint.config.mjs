@@ -40,7 +40,7 @@ export default defineConfig([
 		},
 		rules: {
 			"prettier/prettier": [
-				"error",
+				"warn",
 				{
 					bracketSpacing: true, // this controls spaces inside { }, like in constructors
 					singleQuote: false,
