@@ -1,5 +1,6 @@
 import React from "@rbxts/react";
 import { CloseButton } from "./CloseButton";
+import { Label } from "./Label";
 
 interface FrameProps {
 	title: string;
@@ -17,20 +18,17 @@ export function Frame({ title, onClose, children }: FrameProps) {
 			AnchorPoint={new Vector2(0.5, 0.5)}
 			ClipsDescendants={true}
 		>
-			<uiaspectratioconstraint AspectRatio={0.7 / 0.6} />
-			<textlabel
-				Text={title ?? "Default title"}
-				Size={new UDim2(1, 0, 0.1, 0)}
-				TextScaled={true}
-				Font={Enum.Font.Cartoon}
-				TextColor3={new Color3(1, 1, 1)}
-				BackgroundColor3={new Color3(0.2, 0.2, 0.45)}
+			<uiaspectratioconstraint AspectRatio={0.9 / 0.5} />
+			<Label
+				text={title ?? "Default title"}
+				size={new UDim2(1, 0, 0.1, 0)}
+				color={new Color3(1, 1, 1)}
+				transparency={0}
 			>
 				<CloseButton onClick={onClose} />
 				<uistroke Thickness={2} />
-			</textlabel>
-			<uistroke Thickness={2} />
-
+				<uistroke Thickness={2} />
+			</Label>
 			{children}
 		</frame>
 	);

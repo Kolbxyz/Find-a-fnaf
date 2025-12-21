@@ -1,4 +1,5 @@
-import React from "@rbxts/react";
+import React, { useEffect, useRef } from "@rbxts/react";
+import { animateButton } from "client/Modules/UI";
 
 interface ButtonProps {
 	iconId: string;
@@ -8,8 +9,29 @@ interface ButtonProps {
 }
 
 export function Button({ iconId, label, color, onClick }: ButtonProps) {
+	const ref = useRef<TextButton>();
+
+	useEffect(() => {
+		if (!ref || !ref.current) return;
+		const originalSize = ref.current.Size;
+
+		const animations = animateButton();
+		const hoverConnection = ref.current.MouseEnter.Connect(() => {
+			animations[0](ref.current as TextButton, originalSize);
+		});
+		const leaveConnection = ref.current.MouseLeave.Connect(() => {
+			animations[1](ref.current as TextButton, originalSize);
+		});
+
+		return () => {
+			hoverConnection.Disconnect();
+			leaveConnection.Disconnect();
+		};
+	}, []);
+
 	return (
 		<textbutton
+			ref={ref}
 			Text={""}
 			Size={new UDim2(1, 0, 0.3, 0)}
 			Transparency={0.75}
