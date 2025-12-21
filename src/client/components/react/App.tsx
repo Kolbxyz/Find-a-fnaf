@@ -11,7 +11,7 @@ import { Index } from "./Index";
 import { Players } from "@rbxts/services";
 
 export function App() {
-	const [screen, setScreen] = useState<"index" | "shop" | "none">("none");
+	const [screen, setScreen] = useState<"index" | "shop" | "none">("index");
 	const [currentPopup, setPopup] = useState<Entity | undefined>();
 	const [collection, setCollection] = useState<string[]>([]);
 
@@ -30,6 +30,7 @@ export function App() {
 
 	return (
 		<>
+			{/* Buttons container */}
 			<frame
 				Size={new UDim2(0.1, 0, 1, 0)}
 				BackgroundTransparency={1}
@@ -43,16 +44,18 @@ export function App() {
 					VerticalAlignment={Enum.VerticalAlignment.Center}
 					Padding={new UDim(0, 10)}
 				/>
+
+				{/* Buttons at the left */}
 				<Button
 					iconId="114505581952233"
 					label="Shop"
-					color={new Color3(1, 0, 0)}
+					color={new Color3(0.9, 1, 0)}
 					onClick={() => setScreen(screen !== "shop" ? "shop" : "none")}
 				/>
 				<Button
 					iconId="127110909372919"
 					label="Index"
-					color={new Color3(0.57, 1, 0)}
+					color={new Color3(0, 0.42, 1)}
 					onClick={() => {
 						setScreen(screen !== "index" ? "index" : "none");
 						if (screen !== "index") {
@@ -70,11 +73,11 @@ export function App() {
 				<Button
 					iconId="9562514785"
 					label="spawn"
-					color={new Color3(0, 0.5, 1)}
+					color={new Color3(1, 0.78, 0.97)}
 					onClick={() => {
 						const hrp = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart") as BasePart;
 						if (hrp) {
-							hrp.CFrame = new CFrame(0, 100, 0);
+							hrp.CFrame = new CFrame(0, 5, 0);
 						}
 					}}
 				/>
@@ -82,7 +85,6 @@ export function App() {
 
 			{/* Conditional screens */}
 			{currentPopup !== undefined && <Popup entity={currentPopup}></Popup>}
-			{/*screen === "spawn" && <Counter initialCount={1} />*/}
 			{screen === "shop" && (
 				<Frame title={"Shop"} onClose={() => setScreen("none")}>
 					<Shop />
@@ -93,7 +95,6 @@ export function App() {
 					<Index collection={collection} />
 				</Frame>
 			)}
-			<Label txt={screen} />
 		</>
 	);
 }
