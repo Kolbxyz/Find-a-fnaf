@@ -10,7 +10,8 @@
 		"steal-a-fnaf:out/server/services/InventoryService@InventoryService": "server/services/InventoryService@InventoryService",
 		"steal-a-fnaf:out/shared/network@GlobalEvents": "shared/network@GlobalEvents",
 		"steal-a-fnaf:out/shared/network@GlobalFunctions": "shared/network@GlobalFunctions",
-		"steal-a-fnaf:out/server/services/DatastoreService@DatastoreService": "server/services/DatastoreService@DatastoreService"
+		"steal-a-fnaf:out/server/services/DatastoreService@DatastoreService": "server/services/DatastoreService@DatastoreService",
+		"steal-a-fnaf:out/server/components/EntityComponent@EntityComponent": "server/components/EntityComponent@EntityComponent"
 	},
 	"metadata": {},
 	"salt": "bd7bdb200d2fb76674a781d098c01f99edd8f8abc36e54537afa2f1c8838ff8992dc059f3e4b31a5a286a0ceb196b0e0e639f03f34380373baa75a5dd2ea2af0",
