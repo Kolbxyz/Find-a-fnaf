@@ -93,7 +93,7 @@ export function Index({ collection }: { collection: string[] }) {
 				<textlabel
 					Text={currentEntity?.name ?? ""}
 					Position={new UDim2(0.4, 0, 0, 0)}
-					Size={new UDim2(0.6, 0, 0.15, 0)}
+					Size={new UDim2(0.6, 0, 0.1, 0)}
 					BackgroundTransparency={1}
 					TextScaled={true}
 					TextColor3={new Color3(1, 1, 1)}
@@ -121,8 +121,8 @@ export function Index({ collection }: { collection: string[] }) {
 					RichText={true}
 					Text={(currentEntity && currentEntity.description) ?? ""}
 					TextColor3={new Color3(1, 1, 1)}
-					Position={new UDim2(0.5, 0, 0.3, 0)}
-					Size={new UDim2(0.9, 0, 0.5, 0)}
+					Position={new UDim2(0.5, 0, 0.35, 0)}
+					Size={new UDim2(0.9, 0, 0.4, 0)}
 					AnchorPoint={new Vector2(0.5, 0)}
 					BackgroundTransparency={1}
 					TextScaled={true}
@@ -138,6 +138,11 @@ export function Index({ collection }: { collection: string[] }) {
 					BackgroundTransparency={1}
 					AnchorPoint={new Vector2(0, 0)}
 					Position={new UDim2(0.03, 0, 0.03, 0)}
+					ImageColor3={
+						currentEntity && collection.includes(currentEntity.id)
+							? new Color3(1, 1, 1)
+							: new Color3(0, 0, 0)
+					}
 				>
 					<uicorner />
 					<uiaspectratioconstraint />
@@ -183,13 +188,18 @@ export function Index({ collection }: { collection: string[] }) {
 			<scrollingframe
 				AutomaticCanvasSize={"XY"}
 				CanvasSize={new UDim2(0, 0, 0, 0)}
-				Size={new UDim2(0.65, 0, 0.9, 0)}
+				Size={new UDim2(0.5, 0, 0.9, 0)}
 				Position={new UDim2(0.02, 0, 1, 0)}
 				AnchorPoint={new Vector2(0, 1)}
 				BackgroundTransparency={1}
-				ClipsDescendants={false}
+				ClipsDescendants={true}
+				BorderSizePixel={0}
 			>
-				<uigridlayout CellSize={new UDim2(0.22, 0, 0.3, 0)} CellPadding={new UDim2(0, 10, 0, 10)} />
+				<uigridlayout
+					CellSize={new UDim2(0.22, 0, 0.3, 0)}
+					CellPadding={new UDim2(0, 10, 0, 10)}
+					SortOrder={Enum.SortOrder.LayoutOrder}
+				/>
 				{entities.map((entity: Entity, i) => (
 					<imagebutton
 						key={i}

@@ -4,7 +4,6 @@ import { Popup } from "./Popup";
 import { ClientEvents, ClientFunctions } from "client/network";
 import { Entity } from "shared/types/Entities";
 import { Button } from "./Button";
-import { Label } from "./Label";
 import { Frame } from "./BasicFrame";
 import { Shop } from "./Shop";
 import { Index } from "./Index";
